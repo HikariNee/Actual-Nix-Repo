@@ -1,6 +1,6 @@
 { config, pkgs, lib , ... }:
 {
-
+  
   home.username = "hikari";
   home.homeDirectory = "/home/hikari";
   home.stateVersion = "22.11";
@@ -13,16 +13,19 @@
     enable = true;
     enableZshIntegration = true;
   };
-  programs.vivaldi.enable = true;
-  programs.chromium = {
+  home.pointerCursor = { package = pkgs.breeze-icons; gtk.enable = true; name = "breeze_cursors"; size = 24; };
+  gtk.enable = true;
+  gtk.iconTheme = { package = pkgs.breeze-icons; name = "Breeze"; };
+  gtk.theme = { package = pkgs.breeze-gtk; name = "Breeze"; };  
+  programs.brave = {
     enable = true;
     commandLineArgs=["--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=x11" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
-    extensions = [{id="cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id="cimiefiiaegbelhefglklhhakcgmhkai";}];
+    extensions = [{id="kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id="cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id="cimiefiiaegbelhefglklhhakcgmhkai";}];
   };  
   programs.zsh = {
     enable = true;
     shellAliases = {
-      update = "cd $HOME/Nix-Flake && sudo nixos-rebuild switch --flake .#Tsuki";
+      update = "cd $HOME/Nix-Flake && sudo nixos-rebuild switch --upgrade --flake .#Tsuki";
     };
     enableCompletion = true;
     enableAutosuggestions = true;
@@ -54,6 +57,8 @@
   };
 
   home.packages = with pkgs; [
+    lightly-qt
+    haruna
     glxinfo
     neofetch
     krita
@@ -62,6 +67,12 @@
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
+    ghc
+    haskell-language-server
+    cabal-install
+		cabal2nix
+    alacritty
+    kate
     (pkgs.nerdfonts.override { fonts = [ "Overpass" ]; })
   ];
 }
