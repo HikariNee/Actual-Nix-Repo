@@ -13,13 +13,12 @@
     enable = true;
     enableZshIntegration = true;
   };
-  home.pointerCursor = { package = pkgs.breeze-icons; gtk.enable = true; name = "breeze_cursors"; size = 24; };
   gtk.enable = true;
   gtk.iconTheme = { package = pkgs.breeze-icons; name = "Breeze"; };
   gtk.theme = { package = pkgs.breeze-gtk; name = "Breeze"; };  
-  programs.brave = {
+  programs.chromium = {
     enable = true;
-    commandLineArgs=["--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=x11" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
+    commandLineArgs=["--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
     extensions = [{id="kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id="cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id="cimiefiiaegbelhefglklhhakcgmhkai";}];
   };  
   programs.zsh = {
@@ -56,6 +55,14 @@
      }];
   };
 
+programs.vscode = {
+     enable = true;
+     extensions = with pkgs.vscode-extensions; [
+	haskell.haskell
+        justusadam.language-haskell
+        pkief.material-icon-theme
+   ]; 
+  };
   home.packages = with pkgs; [
     lightly-qt
     haruna
@@ -70,9 +77,9 @@
     ghc
     haskell-language-server
     cabal-install
-		cabal2nix
+    cabal2nix
     alacritty
-    kate
+    nix-prefetch-github
     (pkgs.nerdfonts.override { fonts = [ "Overpass" ]; })
   ];
 }

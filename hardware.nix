@@ -14,36 +14,37 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/8316714b-ef16-4ce1-9787-4ba2150cc66c";
       fsType = "btrfs";
+      options = ["noatime" "compress=lzo:1"];    
     };
 
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/8316714b-ef16-4ce1-9787-4ba2150cc66c";
       fsType = "btrfs";
-      options = [ "subvol=home" ];
+      options = [ "subvol=home" "noatime" "compress=lzo:1"];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/8316714b-ef16-4ce1-9787-4ba2150cc66c";
       fsType = "btrfs";
-      options = [ "subvol=nix" ];
+      options = [ "subvol=nix" "noatime" "compress=lzo:1"];
     };
 
   fileSystems."/usr" =
     { device = "/dev/disk/by-uuid/8316714b-ef16-4ce1-9787-4ba2150cc66c";
       fsType = "btrfs";
-      options = [ "subvol=usr" ];
+      options = [ "subvol=usr" "noatime" "compress=lzo:1"];
     };
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/8316714b-ef16-4ce1-9787-4ba2150cc66c";
       fsType = "btrfs";
-      options = [ "subvol=boot" ];
+      options = [ "subvol=boot" "noatime" "compress=lzo:1"];
     };
 
   fileSystems."/var" =
     { device = "/dev/disk/by-uuid/8316714b-ef16-4ce1-9787-4ba2150cc66c";
       fsType = "btrfs";
-      options = [ "subvol=var" ];
+      options = [ "subvol=var" "noatime" "compress=lzo:1" ];
     };
 
   swapDevices = [ ];

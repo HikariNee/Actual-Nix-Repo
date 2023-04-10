@@ -18,7 +18,7 @@
   boot.initrd.kernelModules = ["i915"];
   boot.plymouth.enable = true;
   boot.plymouth.theme = "breeze";
-  boot.kernelPackages = pkgs.linuxPackages_5_15;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   networking.hostName = "Tsuki"; # Define your hostname. #systemd
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   systemd.services.NetworkManager-wait-online.enable = false;
@@ -28,14 +28,16 @@
   systemd.services.power-profiles-daemon.enable = false;
   systemd.services.thermald.enable = true;
   systemd.services.accounts-daemon.enable = false;
-	services.journald.extraConfig = "Storage=auto";
-  
+  services.journald.extraConfig = "Storage=auto";
+  boot.kernel.sysctl = { "vm.swappiness" = 10;};
   programs.zsh.enable = true;
+  
   # Set your time zone.
   programs.dconf.enable = true;
   time.timeZone = "Asia/Kolkata";
   users.users.hikari.shell = pkgs.zsh;
   i18n.defaultLocale = "en_GB.UTF-8";
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
@@ -55,12 +57,13 @@
      ];
    };
 
-  services.xserver.displayManager.sddm.theme = "${(pkgs.fetchFromGitHub {
-    owner = "MarianArlt";
-    repo = "kde-plasma-chili";
-    rev = "a371123959676f608f01421398f7400a2f01ae06";
-    sha256 = "17pkxpk4lfgm14yfwg6rw6zrkdpxilzv90s48s2hsicgl3vmyr3x";
-  })}";
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+  automatic = true;
+  dates = "weekly";
+  options = "--delete-older-than 30d";
+  };
+  services.xserver.displayManager.sddm.theme = "breeze";
   services.dbus.implementation = "broker";
   environment.systemPackages = with pkgs; [
      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -71,7 +74,6 @@
      libsForQt5.breeze-icons
      libsForQt5.breeze-grub
      libsForQt5.breeze-plymouth
-     clang
   ];
   nixpkgs.config.allowUnfree = true;
   
@@ -114,7 +116,7 @@
   networking.extraHosts = let
     hostsFile = builtins.fetchurl {
         url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts";
-        sha256 = "1dpphz6hiqkvqqw2h8jlp08dr68k605y231y8h1mhlhb572iss6x";
+        sha256 = "14v04r59a25n0fzxg3bhgas1jsyc68p3fnkqzmc63n4qpialil2q";
     };
   in builtins.readFile "${hostsFile}";
 }
