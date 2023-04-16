@@ -7,18 +7,17 @@
   nixpkgs.config = {
   allowUnfree = true;
   };
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
   };
-  gtk.enable = true;
-  gtk.iconTheme = { package = pkgs.breeze-icons; name = "Breeze"; };
-  gtk.theme = { package = pkgs.breeze-gtk; name = "Breeze"; };  
   programs.chromium = {
     enable = true;
-    commandLineArgs=["--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
+    commandLineArgs=["--password-store=basic" "--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
     extensions = [{id="kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id="cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id="cimiefiiaegbelhefglklhhakcgmhkai";}];
   };  
   programs.zsh = {
@@ -66,20 +65,14 @@ programs.vscode = {
   home.packages = with pkgs; [
     lightly-qt
     haruna
-    glxinfo
-    neofetch
-    krita
-    neovim
     ibm-plex
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
-    ghc
     haskell-language-server
-    cabal-install
-    cabal2nix
-    alacritty
     nix-prefetch-github
+    kate
+    wine
     (pkgs.nerdfonts.override { fonts = [ "Overpass" ]; })
   ];
 }
