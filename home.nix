@@ -1,11 +1,14 @@
-{ config, pkgs, lib , ... }:
 {
-  
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   home.username = "hikari";
   home.homeDirectory = "/home/hikari";
   home.stateVersion = "22.11";
   nixpkgs.config = {
-  allowUnfree = true;
+    allowUnfree = true;
   };
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
@@ -17,9 +20,9 @@
   };
   programs.chromium = {
     enable = true;
-    commandLineArgs=["--password-store=basic" "--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
-    extensions = [{id="kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id="cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id="cimiefiiaegbelhefglklhhakcgmhkai";}];
-  };  
+    commandLineArgs = ["--password-store=basic" "--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
+    extensions = [{id = "kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id = "cimiefiiaegbelhefglklhhakcgmhkai";}];
+  };
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -43,24 +46,25 @@
 
     plugins = with pkgs; [
       {
-       name = "agkozak-zsh-prompt";
-       src = fetchFromGitHub {
-         owner = "agkozak";
-         repo = "agkozak-zsh-prompt";
-         rev = "v3.7.0";
-         sha256 = "1iz4l8777i52gfynzpf6yybrmics8g4i3f1xs3rqsr40bb89igrs";
-      };
-       file = "agkozak-zsh-prompt.plugin.zsh";
-     }];
+        name = "agkozak-zsh-prompt";
+        src = fetchFromGitHub {
+          owner = "agkozak";
+          repo = "agkozak-zsh-prompt";
+          rev = "v3.7.0";
+          sha256 = "1iz4l8777i52gfynzpf6yybrmics8g4i3f1xs3rqsr40bb89igrs";
+        };
+        file = "agkozak-zsh-prompt.plugin.zsh";
+      }
+    ];
   };
 
-programs.vscode = {
-     enable = true;
-     extensions = with pkgs.vscode-extensions; [
-	haskell.haskell
-        justusadam.language-haskell
-        pkief.material-icon-theme
-   ]; 
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      haskell.haskell
+      justusadam.language-haskell
+      pkief.material-icon-theme
+    ];
   };
   home.packages = with pkgs; [
     lightly-qt
@@ -73,6 +77,6 @@ programs.vscode = {
     nix-prefetch-github
     kate
     wine
-    (pkgs.nerdfonts.override { fonts = [ "Overpass" ]; })
+    (pkgs.nerdfonts.override {fonts = ["Overpass"];})
   ];
 }
