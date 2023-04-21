@@ -59,6 +59,7 @@
     libsForQt5.breeze-icons
     libsForQt5.breeze-grub
     libsForQt5.breeze-plymouth
+    inxi
   ];
   nixpkgs.config.allowUnfree = true;
 
@@ -93,7 +94,7 @@
   networking.extraHosts = let
     hostsFile = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts";
-      sha256 = "12y1xxvxaq1g0jwqaipz2y61cjy8ij4qbfkgx74yb9qcdkfcsia7";
+      sha256 = "1q83cr6saar66hb6l1q69zr2fjlcm5d99ngnw7ghh78g3x2j525n";
     };
   in
     builtins.readFile "${hostsFile}";

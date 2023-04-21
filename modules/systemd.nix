@@ -18,8 +18,8 @@
     services.haveged.enable = true;
     services.NetworkManager-wait-online.enable = false;
     services.systemd-oomd.enable = false;
-    services.journald.extraConfig = "Storage=auto";
   };
+  services.journald.extraConfig = "Storage=auto";
   systemd.services.nix-daemon.serviceConfig = {
     CPUWeight = 20;
     IOWeight = 20;

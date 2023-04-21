@@ -18,10 +18,10 @@
     enable = true;
     enableZshIntegration = true;
   };
-  programs.chromium = {
+  programs.brave = {
     enable = true;
     commandLineArgs = ["--password-store=basic" "--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
-    extensions = [{id = "kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id = "cimiefiiaegbelhefglklhhakcgmhkai";}];
+    extensions = [{id = "nngceckbapebfimnlniiiahkandclblb";} {id = "kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id = "cimiefiiaegbelhefglklhhakcgmhkai";}];
   };
   programs.zsh = {
     enable = true;
@@ -77,6 +77,8 @@
     nix-prefetch-github
     kate
     wine
+    ghc
+    cabal-install
     (pkgs.nerdfonts.override {fonts = ["Overpass"];})
   ];
 }
