@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   systemd = {
@@ -24,4 +25,5 @@
     CPUWeight = 20;
     IOWeight = 20;
   };
+  networking.firewall.allowedTCPPorts = [ 22 ];
 }

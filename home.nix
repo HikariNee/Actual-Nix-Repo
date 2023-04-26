@@ -79,6 +79,8 @@
     wine
     ghc
     cabal-install
+    alacritty
+    neovim
     (pkgs.nerdfonts.override {fonts = ["Overpass"];})
   ];
 }
