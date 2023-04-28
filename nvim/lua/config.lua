@@ -1,3 +1,6 @@
+vim.wo.relativenumber = 'yes'
+vim.wo.number = 'yes'
+vim.wo.signcolumn = 'yes'
 vim.o.hlsearch = false
 vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
@@ -12,6 +15,4 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.wo.signcolumn = 'yes'
-vim.wo.number = 'yes'
 
