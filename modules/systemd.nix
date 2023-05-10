@@ -19,7 +19,9 @@
     services.haveged.enable = true;
     services.NetworkManager-wait-online.enable = false;
     services.systemd-oomd.enable = false;
-  };
+    services.tlp.enable = true;
+    services.thermald.enable = true;
+ };
   services.journald.extraConfig = "Storage=auto";
   systemd.services.nix-daemon.serviceConfig = {
     CPUWeight = 20;

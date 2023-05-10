@@ -3,14 +3,16 @@
   pkgs,
   ...
 }: {
+  boot.kernelModules = [ "wl" ];
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-  boot.kernelParams = ["cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" "console=tty1" "intel_pstate=disable" "mitigations=off" "nowatchdog" "tsc=reliable" "rootfstype=btrfs"];
+  boot.loader.grub.useOSProber = true;
+  boot.kernelParams = [ "module_blacklist=nouveau" "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" "console=tty1" "mitigations=off" "nowatchdog" "tsc=reliable" "rootfstype=btrfs"];
   boot.loader.grub.gfxmodeBios = "1366x768";
-  boot.loader.grub.extraConfig = "set theme=${pkgs.libsForQt5.breeze-grub}/grub/themes/breeze/theme.txt";
   boot.loader.grub.splashImage = null;
   boot.initrd.systemd.enable = true;
+  boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernel.sysctl = {
     "vm.swappiness" = 90; # when swapping to ssd, otherwise change to 1

@@ -25,7 +25,10 @@ require("lazy").setup({
 	'goolord/alpha-nvim',
 	'lewis6991/gitsigns.nvim',
 	'phaazon/hop.nvim',
-	'windwp/nvim-autopairs'
+	'windwp/nvim-autopairs',
+	'neovimhaskell/haskell-vim',
+	'sbdchd/neoformat'
+
 })
 
 require("poimandres").setup({})

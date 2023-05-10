@@ -13,6 +13,8 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
   networking.hostName = "Tsuki"; # Define your hostname. #systemd
   networking.networkmanager.enable = true;
+  networking.wireless.iwd.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
   networking.dhcpcd.extraConfig = "noarp";
   nix.extraOptions = ''
     keep-outputs = true
@@ -26,14 +28,13 @@
   users.users.hikari.shell = pkgs.zsh;
   i18n.defaultLocale = "en_GB.UTF-8";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      vaapiVdpau
-      libvdpau-va-gl
+      vaapiIntel # LIBVA_DRIVER_NAME=iHD
     ];
   };
 
@@ -55,13 +56,11 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.breeze-icons
-    libsForQt5.breeze-grub
-    libsForQt5.breeze-plymouth
     inxi
     unzip
     clang
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.material-you-color-theming   
   ];
   nixpkgs.config.allowUnfree = true;
 
@@ -75,28 +74,27 @@
     };
   };
   hardware.opengl.driSupport32Bit = true;
-  services = {
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-    };
-  };
+#  services = {
+ #   pipewire = {
+  #    enable = true;
+   #   alsa.enable = true;
+    #  pulse.enable = true;
+    #};
+ # };
   security.rtkit.enable = true;
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [xdg-desktop-portal-kde xdg-desktop-portal-gtk];
   };
 
   services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
   zramSwap.enable = true;
   system.stateVersion = "22.11"; # Did you read the comment?
   networking.extraHosts = let
     hostsFile = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts";
-      sha256 = "0y5snwq7qxncdw98bhirkx7pabh4l90dik7bmvfdw6bnlja5i4pm";
+      sha256 = "0w25s0dbl2c53r8gi349i4fp9zqwdr99qhja12vl0p092k6fb8gk";
     };
   in
     builtins.readFile "${hostsFile}";
