@@ -19,7 +19,11 @@
     services.haveged.enable = true;
     services.NetworkManager-wait-online.enable = false;
     services.systemd-oomd.enable = false;
-  };
+    services.thermald.enable = true;
+    services.ModemManager.enable = false;
+    services.bluetooth.enable = false;
+    services.rngd.enable = true;
+ };
   services.journald.extraConfig = "Storage=auto";
   systemd.services.nix-daemon.serviceConfig = {
     CPUWeight = 20;

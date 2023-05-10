@@ -18,11 +18,11 @@
     enable = true;
     enableZshIntegration = true;
   };
-  programs.brave = {
-    enable = true;
-    commandLineArgs = ["--password-store=basic" "--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
-    extensions = [{id = "nngceckbapebfimnlniiiahkandclblb";} {id = "kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id = "cimiefiiaegbelhefglklhhakcgmhkai";}];
-  };
+  #programs.brave = {
+  #  enable = true;
+  #  commandLineArgs = ["--enable-features=VaapiVideoDecoder" "--disable-features=UseChromeOSDirectVideoDecoder" "--password-store=basic" "--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
+  #  extensions = [{id = "nngceckbapebfimnlniiiahkandclblb";} {id = "kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id = "cimiefiiaegbelhefglklhhakcgmhkai";}];
+  #};
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -58,29 +58,31 @@
     ];
   };
 
-  programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      haskell.haskell
-      justusadam.language-haskell
-      pkief.material-icon-theme
-    ];
-  };
   home.packages = with pkgs; [
-    lightly-qt
-    haruna
+    celluloid
     ibm-plex
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
     haskell-language-server
     nix-prefetch-github
-    kate
-    wine
     ghc
     cabal-install
     alacritty
+    gnome.gnome-tweaks
     neovim
-    (pkgs.nerdfonts.override {fonts = ["Overpass"];})
+    vulkan-tools
+    adw-gtk3
+    libva-utils
+    ormolu
+    git
+    intel-gpu-tools
+    firefox-beta-bin
+    citra
   ];
+  home.sessionVariables = {
+  MOZ_ENABLE_WAYLAND = 1;
+  XDG_CURRENT_DESKTOP = "gnome"; 
+  };
+
 }
