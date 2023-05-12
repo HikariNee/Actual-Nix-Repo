@@ -69,7 +69,6 @@
     ghc
     cabal-install
     alacritty
-    gnome.gnome-tweaks
     neovim
     vulkan-tools
     adw-gtk3
@@ -79,10 +78,13 @@
     intel-gpu-tools
     firefox-beta-bin
     citra
+    ripgrep
+    ghostwriter
+    libsForQt5.keysmith
   ];
   home.sessionVariables = {
   MOZ_ENABLE_WAYLAND = 1;
-  XDG_CURRENT_DESKTOP = "gnome"; 
+  XDG_CURRENT_DESKTOP = "kde"; 
   };
 
 }

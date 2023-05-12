@@ -65,8 +65,6 @@
     inxi
     unzip
     clang
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.coverflow-alt-tab
     powertop
     auto-cpufreq
  ];
@@ -96,6 +94,7 @@
     extraPortals = with pkgs; [xdg-desktop-portal-kde xdg-desktop-portal-gtk];
   }; 
    
+
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;

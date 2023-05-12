@@ -23,6 +23,7 @@
     services.ModemManager.enable = false;
     services.bluetooth.enable = false;
     services.rngd.enable = true;
+    services.tlp.enable = true;
  };
   services.journald.extraConfig = "Storage=auto";
   systemd.services.nix-daemon.serviceConfig = {
