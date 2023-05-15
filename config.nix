@@ -21,7 +21,6 @@
     keep-derivations = true
   '';
   programs.zsh.enable = true;
-  powerManagement.cpuFreqGovernor = "schedutil";
   # Set your time zone.
   programs.dconf.enable = true;
   time.timeZone = "Asia/Kolkata";
@@ -38,11 +37,11 @@
     ];
   };
   
-  services.xserver.displayManager.sddm.theme = "${(pkgs.fetchFromGitHub {
-    owner = "MarianArlt";
-    repo = "kde-plasma-chili";
-    rev = "a371123959676f608f01421398f7400a2f01ae06";
-    sha256 = "17pkxpk4lfgm14yfwg6rw6zrkdpxilzv90s48s2hsicgl3vmyr3x";
+  services.xserver.displayManager.sddm.theme = "${(pkgs.fetchFromGitLab {
+  owner = "isseigx";
+  repo = "simplicity-sddm-theme";
+  rev = "0365a7ddc19099a4047116a7e2dfec6207d8fd59";
+  hash = "sha256-Txrz/uHA4vNxX+5cHjPdNZ7M75n7RBM5CLn96Xe+NJ4=";
   })}";
 
   users.users.hikari = {
@@ -103,7 +102,7 @@
   networking.extraHosts = let
     hostsFile = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts";
-      sha256 = "0ff0bdqsa97xv7immr0bs0mplqxa6vb8f8q5m1s37xjii3nj0nm7";
+      sha256 = "0ma9j18irqv0crq81r9wnyad6fckac2bv1y74p77lwmn3sripg11";
     };
   in
     builtins.readFile "${hostsFile}";

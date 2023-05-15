@@ -6,7 +6,6 @@
 }: {
   boot.kernelModules = [ "wl" ];
   boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
   boot.loader.grub.useOSProber = true;
   boot.extraModprobeConfig =  "blacklist nouveau \n options nouveau modeset=0 \n options snd_hda_intel power_save=1 \n blacklist btusb bluetooth uvcvideo";
@@ -17,8 +16,20 @@
   boot.initrd.systemd.enable = true;
   boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
   boot.kernelPackages = pkgs.linuxPackages_xanmod_stable;
+  services.udev.extraRules = ''# Remove NVIDIA USB xHCI Host Controller devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
+
+# Remove NVIDIA USB Type-C UCSI devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
+
+# Remove NVIDIA Audio devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
+
+# Remove NVIDIA VGA/3D controller devices
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"'';
+
   boot.kernel.sysctl = {
-    "vm.swappiness" = 90; # when swapping to ssd, otherwise change to 1
+    "vm.swappiness" = 60; # when swapping to ssd, otherwise change to 1
     "vm.vfs_cache_pressure" = 50;
     "vm.dirty_background_ratio" = 20;
     "vm.dirty_ratio" = 50;
@@ -31,14 +42,6 @@
     "vm.dirty_writeback_centisecs" = 6000;
     "vm.laptop_mode" = 5;
   };
-  services.udev.extraRules = lib.mkMerge [
-    # autosuspend USB devices
-    ''ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"''
-    # autosuspend PCI devices
-    ''ACTION=="add", SUBSYSTEM=="pci", TEST=="power/control", ATTR{power/control}="auto"''
-    # disable Ethernet Wake-on-LAN
-    ''ACTION=="add", SUBSYSTEM=="net", NAME=="enp*", RUN+="${pkgs.ethtool}/sbin/ethtool -s $name wol d"''
-  ];
   services.power-profiles-daemon.enable = false;
   services.tlp = {
       enable = true;

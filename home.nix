@@ -65,7 +65,6 @@
     noto-fonts-cjk
     noto-fonts-emoji
     haskell-language-server
-    nix-prefetch-github
     ghc
     cabal-install
     alacritty
@@ -81,6 +80,7 @@
     ripgrep
     ghostwriter
     libsForQt5.keysmith
+    nurl
   ];
   home.sessionVariables = {
   MOZ_ENABLE_WAYLAND = 1;
