@@ -59,6 +59,7 @@
   };
 
   home.packages = with pkgs; [
+    flameshot
     celluloid
     ibm-plex
     noto-fonts
@@ -81,6 +82,7 @@
     ghostwriter
     libsForQt5.keysmith
     nurl
+    lightly-boehs
   ];
   home.sessionVariables = {
   MOZ_ENABLE_WAYLAND = 1;

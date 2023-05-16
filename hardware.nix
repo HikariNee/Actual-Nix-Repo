@@ -9,18 +9,20 @@
     ];
 
   boot.initrd.availableKernelModules = [ "ehci_pci" "ata_piix" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = ["i915" ];
   boot.kernelModules = [ "kvm-intel" "wl" "b43"];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/5d534d7d-144f-4225-b887-cf3d041f07cb";
       fsType = "btrfs";
+      options = ["noatime" "autodefrag" "nodiratime"];
     };
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/bf6dbd31-f857-46a1-a7f3-786a01ab745c";
       fsType = "btrfs";
+      options = ["noatime" "autodefrag" "nodiratime"];
     };
 
   swapDevices = [ ];

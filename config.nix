@@ -16,6 +16,7 @@
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
   networking.dhcpcd.extraConfig = "noarp";
+  nix.gc.randomizedDelaySec = "10m";
   nix.extraOptions = ''
     keep-outputs = true
     keep-derivations = true
@@ -102,7 +103,7 @@
   networking.extraHosts = let
     hostsFile = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts";
-      sha256 = "0ma9j18irqv0crq81r9wnyad6fckac2bv1y74p77lwmn3sripg11";
+      sha256 = "1xr5d191hwid186bsg5mpgkhv9nbp48dlwk9g24p69lkyi193w2a";
     };
   in
     builtins.readFile "${hostsFile}";
