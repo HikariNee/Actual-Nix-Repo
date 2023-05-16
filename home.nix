@@ -59,7 +59,6 @@
   };
 
   home.packages = with pkgs; [
-    flameshot
     celluloid
     ibm-plex
     noto-fonts
