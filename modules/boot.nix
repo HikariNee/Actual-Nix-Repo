@@ -15,7 +15,7 @@
   boot.loader.grub.splashImage = null;
   boot.initrd.systemd.enable = true;
   boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_stable;
+  boot.kernelPackages = pkgs.linuxPackages_lqx;
   services.udev.extraRules = ''# Remove NVIDIA USB xHCI Host Controller devices, if present
 ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
 

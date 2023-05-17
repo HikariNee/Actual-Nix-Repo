@@ -18,11 +18,6 @@
     enable = true;
     enableZshIntegration = true;
   };
-  #programs.brave = {
-  #  enable = true;
-  #  commandLineArgs = ["--enable-features=VaapiVideoDecoder" "--disable-features=UseChromeOSDirectVideoDecoder" "--password-store=basic" "--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
-  #  extensions = [{id = "nngceckbapebfimnlniiiahkandclblb";} {id = "kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id = "cimiefiiaegbelhefglklhhakcgmhkai";}];
-  #};
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -37,29 +32,29 @@
       path = "${config.xdg.dataHome}/zsh/history";
     };
     initExtra = ''
-      AGKOZAK_CMD_EXEC_TIME=5
-      AGKOZAK_COLORS_CMD_EXEC_TIME='yellow'
-      AGKOZAK_COLORS_PROMPT_CHAR='magenta'
-      AGKOZAK_CUSTOM_SYMBOLS=( '⇣⇡' '⇣' '⇡' '+' 'x' '!' '>' '?' )
-      AGKOZAK_MULTILINE=0
-      AGKOZAK_PROMPT_CHAR=( ❯ ❯ ❮ ) '';
+      TYPEWRITTEN_SYMBOL='$'
+      TYPEWRITTEN_CURSOR='beam'
+
+    '';
 
     plugins = with pkgs; [
       {
-        name = "agkozak-zsh-prompt";
+        name = "typewritten";
         src = fetchFromGitHub {
-          owner = "agkozak";
-          repo = "agkozak-zsh-prompt";
-          rev = "v3.7.0";
-          sha256 = "1iz4l8777i52gfynzpf6yybrmics8g4i3f1xs3rqsr40bb89igrs";
-        };
-        file = "agkozak-zsh-prompt.plugin.zsh";
+          owner = "reobin";
+          repo = "typewritten";
+          rev = "6f78ec20f1a3a5b996716d904ed8c7daf9b76a2a";
+          hash = "sha256-qiC4IbmvpIseSnldt3dhEMsYSILpp7epBTZ53jY18x8=";
+        };  
+        file = "typewritten.plugin.zsh";
+
       }
     ];
   };
 
   home.packages = with pkgs; [
-    celluloid
+    haruna
+    prismlauncher
     ibm-plex
     noto-fonts
     noto-fonts-cjk

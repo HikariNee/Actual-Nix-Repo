@@ -38,13 +38,6 @@
     ];
   };
   
-  services.xserver.displayManager.sddm.theme = "${(pkgs.fetchFromGitLab {
-  owner = "isseigx";
-  repo = "simplicity-sddm-theme";
-  rev = "0365a7ddc19099a4047116a7e2dfec6207d8fd59";
-  hash = "sha256-Txrz/uHA4vNxX+5cHjPdNZ7M75n7RBM5CLn96Xe+NJ4=";
-  })}";
-
   users.users.hikari = {
     isNormalUser = true;
     extraGroups = ["wheel" "video" "audio"]; # Enable ‘sudo’ for the user.
@@ -102,8 +95,8 @@
   system.stateVersion = "22.11"; # Did you read the comment?
   networking.extraHosts = let
     hostsFile = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts";
-      sha256 = "1xr5d191hwid186bsg5mpgkhv9nbp48dlwk9g24p69lkyi193w2a";
+      url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts";
+      sha256 = "1ral99nxwx76x12p4ky43din5crnyancplkyrq0l0kmbpmss3msf";
     };
   in
     builtins.readFile "${hostsFile}";
