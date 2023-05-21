@@ -5,31 +5,27 @@
   ...
 }: {
   boot.kernelModules = [ "wl" ];
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.configurationLimit = 15;
+  boot.loader.systemd-boot.enable = true;
   boot.extraModprobeConfig =  "blacklist nouveau \n options nouveau modeset=0 \n options snd_hda_intel power_save=1 \n blacklist btusb bluetooth uvcvideo";
-  boot.kernelParams = [ "module_blacklist=nouveau" "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" "intel_pstate=disable" "console=tty1" "mitigations=off" "nowatchdog" "tsc=reliable" "rootfstype=btrfs"];
+  boot.kernelParams = [ "module_blacklist=nouveau" "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" "console=tty1" "mitigations=off" "nowatchdog" "tsc=reliable" "rootfstype=btrfs"];
   hardware.cpu.intel.updateMicrocode = true;
-  boot.loader.grub.gfxmodeBios = "1366x768";
-  boot.loader.grub.splashImage = null;
+  boot.loader.efi.canTouchEfiVariables = true;
+    
   boot.initrd.systemd.enable = true;
   boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-  boot.kernelPackages = pkgs.linuxPackages_lqx;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   services.udev.extraRules = ''# Remove NVIDIA USB xHCI Host Controller devices, if present
-ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
 
-# Remove NVIDIA USB Type-C UCSI devices, if present
-ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
 
-# Remove NVIDIA Audio devices, if present
-ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
 
-# Remove NVIDIA VGA/3D controller devices
-ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"'';
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"'';
 
   boot.kernel.sysctl = {
-    "vm.swappiness" = 60; # when swapping to ssd, otherwise change to 1
+    "vm.swappiness" = 30; # when swapping to ssd, otherwise change to 1
     "vm.vfs_cache_pressure" = 50;
     "vm.dirty_background_ratio" = 20;
     "vm.dirty_ratio" = 50;
@@ -43,6 +39,7 @@ ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]
     "vm.laptop_mode" = 5;
   };
   services.power-profiles-daemon.enable = false;
+  services.thermald.enable = true;
   services.tlp = {
       enable = true;
       settings = {

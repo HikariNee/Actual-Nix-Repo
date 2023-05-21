@@ -17,10 +17,7 @@
   networking.networkmanager.wifi.backend = "iwd";
   networking.dhcpcd.extraConfig = "noarp";
   nix.gc.randomizedDelaySec = "10m";
-  nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-  '';
+
   programs.zsh.enable = true;
   # Set your time zone.
   programs.dconf.enable = true;
@@ -60,6 +57,8 @@
     clang
     powertop
     auto-cpufreq
+    libsForQt5.bluez-qt
+    kdeconnect
  ];
   nixpkgs.config.allowUnfree = true;
 
@@ -84,7 +83,7 @@
   security.rtkit.enable = true;
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [xdg-desktop-portal-kde xdg-desktop-portal-gtk];
+    extraPortals = with pkgs; [ xdg-desktop-portal-kde xdg-desktop-portal-gtk ];
   }; 
    
 

@@ -18,6 +18,11 @@
     enable = true;
     enableZshIntegration = true;
   };
+  programs.brave = {
+    enable = true;
+    commandLineArgs = ["--enable-features=VaapiVideoDecoder" "--disable-features=UseChromeOSDirectVideoDecoder" "--password-store=basic" "--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
+    extensions = [{id = "nngceckbapebfimnlniiiahkandclblb";} {id = "kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id = "cimiefiiaegbelhefglklhhakcgmhkai";}];
+  };
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -53,8 +58,10 @@
   };
 
   home.packages = with pkgs; [
-    haruna
-    prismlauncher
+    cabal2nix
+    thermald
+    lightly-boehs
+    wireshark
     ibm-plex
     noto-fonts
     noto-fonts-cjk
@@ -64,19 +71,17 @@
     cabal-install
     alacritty
     neovim
-    vulkan-tools
     adw-gtk3
     libva-utils
     ormolu
     git
     intel-gpu-tools
-    firefox-beta-bin
-    citra
     ripgrep
-    ghostwriter
     libsForQt5.keysmith
+    libsForQt5.applet-window-buttons
     nurl
-    lightly-boehs
+    libreoffice-qt
+    prismlauncher
   ];
   home.sessionVariables = {
   MOZ_ENABLE_WAYLAND = 1;
