@@ -16,13 +16,11 @@
       DefaultIOAccounting=yes
     '';
     services."user@".serviceConfig.Delegate = true;
-    services.haveged.enable = true;
     services.NetworkManager-wait-online.enable = false;
     services.systemd-oomd.enable = false;
     services.thermald.enable = true;
     services.ModemManager.enable = false;
     services.bluetooth.enable = false;
-    services.rngd.enable = true;
     services."zram-reloader".restartIfChanged = lib.mkForce false;
     services.tlp.enable = true;
  };
@@ -31,5 +29,6 @@
     CPUWeight = 20;
     IOWeight = 20;
   };
+  services.dbus.implementation = "broker";
   networking.firewall.allowedTCPPorts = [ 22 ];
 }

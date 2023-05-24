@@ -13,8 +13,6 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
   networking.hostName = "Tsuki"; # Define your hostname. #systemd
   networking.networkmanager.enable = true;
-  networking.wireless.iwd.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
   networking.dhcpcd.extraConfig = "noarp";
   nix.gc.randomizedDelaySec = "10m";
 
@@ -95,7 +93,7 @@
   networking.extraHosts = let
     hostsFile = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts";
-      sha256 = "1ral99nxwx76x12p4ky43din5crnyancplkyrq0l0kmbpmss3msf";
+      sha256 = "0dbjrl0jvyc3w5yxk81icw66ncamsmji8im8pzchxdbivx8hh8q5";
     };
   in
     builtins.readFile "${hostsFile}";

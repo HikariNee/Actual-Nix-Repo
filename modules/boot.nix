@@ -11,10 +11,8 @@
   boot.kernelParams = [ "module_blacklist=nouveau" "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" "console=tty1" "mitigations=off" "nowatchdog" "tsc=reliable" "rootfstype=btrfs"];
   hardware.cpu.intel.updateMicrocode = true;
   boot.loader.efi.canTouchEfiVariables = true;
-    
-  boot.initrd.systemd.enable = true;
+  boot.initrd.systemd.enable = true;    
   boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   services.udev.extraRules = ''# Remove NVIDIA USB xHCI Host Controller devices, if present
     ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
 
@@ -29,17 +27,12 @@
     "vm.vfs_cache_pressure" = 50;
     "vm.dirty_background_ratio" = 20;
     "vm.dirty_ratio" = 50;
-    "kernel.sched_latency_ns" = 4000000;
-    "kernel.sched_min_granularity_ns" = 500000;
-    "kernel.sched_wakeup_granularity_ns" = 50000;
-    "kernel.sched_migration_cost_ns" = 250000;
-    "kernel.sched_cfs_bandwidth_slice_us" = 3000;
-    "kernel.sched_nr_migrate" = 128;
     "vm.dirty_writeback_centisecs" = 6000;
     "vm.laptop_mode" = 5;
   };
   services.power-profiles-daemon.enable = false;
   services.thermald.enable = true;
+  services.haveged.enable = true;
   services.tlp = {
       enable = true;
       settings = {

@@ -18,11 +18,6 @@
     enable = true;
     enableZshIntegration = true;
   };
-  programs.brave = {
-    enable = true;
-    commandLineArgs = ["--enable-features=VaapiVideoDecoder" "--disable-features=UseChromeOSDirectVideoDecoder" "--password-store=basic" "--force-dark-mode" "--enable-features=WebUIDarkMode" "--ignore-gpu-blocklist" "--ozone-platform=wayland" "--process-per-site" "--use-gl=egl" "--enable-zero-copy" "--enable-gpu-rasterization"];
-    extensions = [{id = "nngceckbapebfimnlniiiahkandclblb";} {id = "kbmfpngjjgdllneeigpgjifpgocmfgmb";} {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} {id = "cimiefiiaegbelhefglklhhakcgmhkai";}];
-  };
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -60,6 +55,12 @@
   home.packages = with pkgs; [
     cabal2nix
     thermald
+    gzdoom
+    element-desktop
+    rng-tools
+    haveged
+    libsForQt5.qtstyleplugin-kvantum
+    glfw-wayland
     lightly-boehs
     wireshark
     ibm-plex
@@ -82,10 +83,11 @@
     nurl
     libreoffice-qt
     prismlauncher
+    firefox-wayland
   ];
   home.sessionVariables = {
-  MOZ_ENABLE_WAYLAND = 1;
-  XDG_CURRENT_DESKTOP = "kde"; 
+    MOZ_ENABLE_WAYLAND = 1;
+    XDG_CURRENT_DESKTOP = "kde";
   };
 
 }
